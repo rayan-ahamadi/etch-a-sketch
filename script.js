@@ -39,9 +39,7 @@ clearButton.addEventListener('click', () => {
 
 
 resizeCursor.addEventListener('change', () => {
-    while(grid.firstChild){
-        grid.removeChild(grid.firstChild);
-    }
+    grid.innerHTML = '';
     let value = resizeCursor.value;
     fillGrid(parseInt(value));
     cursorLabel.textContent = `${value}x${value}`;
