@@ -2,6 +2,8 @@ const grid = document.querySelector('#grid');
 const resizeCursor = document.querySelector('#resize-cursor');
 const cursorLabel = document.querySelector('#cursor-label');
 const clearButton = document.querySelector('#clear');
+const colorPicker = document.querySelector('#choose-color');
+const rainbowMode = document.querySelector("rainbow")
 
 function fillGrid(dimension){
     for(let i = 0; i < dimension; i++){
@@ -13,20 +15,23 @@ function fillGrid(dimension){
             newDivColumn.style['border'] = '0.1px solid black';
             newDivColumn.style['height'] = `${(grid.offsetHeight / dimension) - 2}px`;
             newDivColumn.classList.add('grid-cell');
+            newDivRow.appendChild(newDivColumn);
             grid.addEventListener('mousedown', () => {
+                newDivColumn.myParam = colorPicker.value;
                 newDivColumn.addEventListener('mouseover', changeColor); 
             });
             grid.addEventListener('mouseup', () => {
+                // Remove the event listener
                 newDivColumn.removeEventListener('mouseover', changeColor);
+
             });
-            newDivRow.appendChild(newDivColumn);
         }
     }
 }
 
 function changeColor(e){
     if(e.target.classList.contains('grid-cell')){
-        e.target.style['background-color'] = 'black';
+        e.target.style['background-color'] = e.currentTarget.myParam;
     }
 }
 
