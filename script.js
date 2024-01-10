@@ -3,7 +3,7 @@ const resizeCursor = document.querySelector('#resize-cursor');
 const cursorLabel = document.querySelector('#cursor-label');
 const clearButton = document.querySelector('#clear');
 const colorPicker = document.querySelector('#choose-color');
-const rainbowMode = document.querySelector("rainbow")
+const rainbowMode = document.querySelector("#rainbow")
 
 function fillGrid(dimension){
     for(let i = 0; i < dimension; i++){
@@ -17,7 +17,12 @@ function fillGrid(dimension){
             newDivColumn.classList.add('grid-cell');
             newDivRow.appendChild(newDivColumn);
             grid.addEventListener('mousedown', () => {
-                newDivColumn.myParam = colorPicker.value;
+                if(!rainbowMode.checked){
+                   newDivColumn.myParam = colorPicker.value; 
+                }else {
+                    newDivColumn.myParam = randomColor(); 
+                }
+    
                 newDivColumn.addEventListener('mouseover', changeColor); 
             });
             grid.addEventListener('mouseup', () => {
@@ -33,6 +38,14 @@ function changeColor(e){
     if(e.target.classList.contains('grid-cell')){
         e.target.style['background-color'] = e.currentTarget.myParam;
     }
+}
+
+function randomColor(){
+    let red,green,blue;
+    red = Math.floor(Math.random() * 256);
+    green = Math.floor(Math.random() * 256);
+    blue = Math.floor(Math.random() * 256);
+    return `rgb(${red} ${green} ${blue})`
 }
 
 clearButton.addEventListener('click', () => {
